@@ -86,8 +86,15 @@ if __name__ == "__main__":
             speak(results)
             
         
-        elif 'open youtube' in query:
-            webbrowser.open("youtube.com")
+            
+        elif "youtube" in query:
+            speak("This is what I found for your search!") 
+            query = query.replace("youtube search","")
+            query = query.replace("youtube","")
+            query = query.replace("jarvis","")
+            web  = "https://www.youtube.com/results?search_query=" + query
+            webbrowser.open(web)
+            pywhatkit.playonyt(query)
 
        
         elif 'open browser' in query:
@@ -95,6 +102,21 @@ if __name__ == "__main__":
 
         elif 'open quora' in query:
             webbrowser.open("quora.com")   
+            
+        elif "temperature" in query:
+            search = "temperature in modinagar"
+            url = f"https://www.google.com/search?q={search}"
+            r  = requests.get(url)
+            data = BeautifulSoup(r.text,"html.parser")
+            temp = data.find("div", class_ = "BNeawe").text
+            speak(f"current{search} is {temp}")
+        elif "weather" in query:
+            search = "temperature in modinagar"
+            url = f"https://www.google.com/search?q={search}"
+            r  = requests.get(url)
+            data = BeautifulSoup(r.text,"html.parser")
+            temp = data.find("div", class_ = "BNeawe").text
+            speak(f"current{search} is {temp}")
 
 
         elif 'play music' in query:
@@ -175,7 +197,7 @@ if __name__ == "__main__":
         elif 'google' in query:
             import wikipedia as googlescrap 
             query=query.replace("alice","")
-            query=query.replace("googlr search","")
+            query=query.replace("google search","")
             query= query.replace("google", "")
             speak("This is what i found on the web!")
             pywhatkit.search(query)
@@ -185,7 +207,10 @@ if __name__ == "__main__":
                 speak("result")
             except:
                 speak("no data is available")
-                
+        elif 'wait' in query:
+            speak("okay")
+            time.sleep(7)
+            
             
             
             
